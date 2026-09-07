@@ -2,7 +2,7 @@
 
 SPECduration is an open-source Python package for estimating spectral seismic duration from the displacement response spectrum (DRS).
 
-The software computes the DRS of an earthquake acceleration record, automatically identifies the predominant spectral window using the second spectral derivative, and performs harmonic fitting within the detected window to estimate the spectral duration parameter \(T_s\).
+The software computes the DRS of an earthquake acceleration record, automatically identifies the predominant spectral window using the second spectral derivative, and performs harmonic fitting within the detected window to estimate the spectral duration parameter T_s.
 
 SPECduration is designed for reproducible and non-interactive analysis of processed earthquake acceleration records. The fitting window is defined automatically, avoiding manual selection.
 
@@ -36,13 +36,13 @@ $$
 
 where:
 
-- \(DRS(T)\) is the displacement response spectrum;
-- \(P\) is the fixed maximum DRS value;
-- \(T\) is the natural period;
-- \(T_s\) is the spectral duration parameter;
-- \(c\) is the phase constant.
+- DRS(T) is the displacement response spectrum;
+- P is the fixed maximum DRS value;
+- T is the natural period;
+- T_s is the spectral duration parameter;
+- c is the phase constant.
 
-The predominant spectral window is defined from the behavior of the second spectral derivative \(DRS''(T)\) around the predominant DRS peak. The harmonic model is then fitted within this automatically detected window to estimate \(T_s\).
+The predominant spectral window is defined from the behavior of the second spectral derivative DRS''(T) around the predominant DRS peak. The harmonic model is then fitted within this automatically detected window to estimate T_s.
 
 The default analysis uses a damping ratio of 5% and a spectral period step of:
 
@@ -57,12 +57,12 @@ For the complete theoretical development and validation of the method, refer to 
 # Features
 
 - Displacement response spectrum computation using the Newmark-beta method.
-- Automatic identification of the predominant period \(T_{peak}\).
+- Automatic identification of the predominant period T_peak.
 - Second spectral derivative-based detection of the predominant spectral window.
-- Automatic definition of \(T_{left}\) and \(T_{right}\).
+- Automatic definition of T_left and T_right.
 - Harmonic fitting within the detected spectral window.
-- Estimation of the spectral duration \(T_s\).
-- Calculation of the coefficient of determination \(R^2\).
+- Estimation of the spectral duration T_s.
+- Calculation of the coefficient of determination R^2.
 - Automatic validation of the fitting result.
 - Generation of Excel and CSV outputs.
 - Generation of diagnostic figures.
@@ -151,7 +151,7 @@ python -m specduration.cli --input "examples/LOMA PRIETA.txt" --out "outputs"
 - `--dT`: spectral period step used for DRS computation, in seconds. Default: `0.01`.
 - `--min-points-window`: minimum number of points required in the detected spectral window. Default: `10`.
 - `--min-points-fit`: minimum number of points required for harmonic fitting. Default: `10`.
-- `--min-R2-fit`: minimum \(R^2\) required to accept the fitting result. Default: `0.98`.
+- `--min-R2-fit`: minimum R^2 required to accept the fitting result. Default: `0.98`.
 - `--no-extend-window`: disables automatic extension of the detected window when the minimum number of points is not reached.
 
 ---
@@ -161,7 +161,7 @@ python -m specduration.cli --input "examples/LOMA PRIETA.txt" --out "outputs"
 SPECduration requires a plain-text earthquake acceleration record with at least two columns:
 
 1. Time, in seconds.
-2. Ground acceleration, in \(\mathrm{m/s^2}\).
+2. Ground acceleration, in m/s².
 
 Example:
 
@@ -234,17 +234,17 @@ Second spectral derivative and the detected spectral window.
 
 # Interpretation of results
 
-The main parameter estimated by SPECduration is the spectral duration \(T_s\).
+The main parameter estimated by SPECduration is the spectral duration T_s.
 
-Unlike conventional time-domain duration measures, \(T_s\) is obtained from the harmonic representation of the predominant region of the displacement response spectrum.
+Unlike conventional time-domain duration measures, T_s is obtained from the harmonic representation of the predominant region of the displacement response spectrum.
 
-The coefficient of determination \(R^2\) indicates the quality of the harmonic fit within the detected window. By default, the fitting result is considered valid when the specified fitting criteria are satisfied and:
+The coefficient of determination R^2 indicates the quality of the harmonic fit within the detected window. By default, the fitting result is considered valid when the specified fitting criteria are satisfied and:
 
 $$
 R^2 \geq 0.98
 $$
 
-The estimated \(T_s\) should be interpreted as a spectral-duration descriptor and not as a direct replacement for conventional time-domain duration measures.
+The estimated T_s should be interpreted as a spectral-duration descriptor and not as a direct replacement for conventional time-domain duration measures.
 
 ---
 
@@ -253,12 +253,12 @@ The estimated \(T_s\) should be interpreted as a spectral-duration descriptor an
 The computational workflow implemented in SPECduration is:
 
 1. Load the processed earthquake acceleration record.
-2. Compute the displacement response spectrum \(DRS(T)\) using Newmark-beta integration.
-3. Identify the predominant DRS peak at \(T_{peak}\).
-4. Compute the second spectral derivative \(DRS''(T)\).
-5. Determine the predominant spectral window from the second-derivative behavior around \(T_{peak}\), obtaining \(T_{left}\) and \(T_{right}\).
+2. Compute the displacement response spectrum DRS(T) using Newmark-beta integration.
+3. Identify the predominant DRS peak at T_peak.
+4. Compute the second spectral derivative DRS''(T).
+5. Determine the predominant spectral window from the second-derivative behavior around T_peak, obtaining T_left and T_right.
 6. Fit the harmonic model within the detected window.
-7. Estimate the spectral duration \(T_s\) and calculate \(R^2\).
+7. Estimate the spectral duration T_s and calculate R^2.
 8. Validate the fitting result.
 9. Export numerical results and diagnostic figures.
 
