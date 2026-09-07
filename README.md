@@ -30,9 +30,9 @@ SPECduration implements the spectral-duration method described in the associated
 
 The harmonic model used for the fitting is:
 
-\[
+$$
 DRS(T)=P\sin\left(\frac{\pi T_s}{T}+c\right)
-\]
+$$
 
 where:
 
@@ -46,9 +46,9 @@ The predominant spectral window is defined from the behavior of the second spect
 
 The default analysis uses a damping ratio of 5% and a spectral period step of:
 
-\[
+$$
 \Delta T = 0.01\ \mathrm{s}
-\]
+$$
 
 For the complete theoretical development and validation of the method, refer to the associated research paper.
 
@@ -216,13 +216,19 @@ Numerical spectral derivative data used in the window-detection procedure.
 
 Displacement response spectrum over the analyzed period range.
 
+![Displacement response spectrum](docs/figures/drs_full.png)
+
 ### `drs_window.png`
 
 Predominant spectral window, peak period, and harmonic fitting result.
 
+![Detected spectral window and harmonic fit](docs/figures/drs_window.png)
+
 ### `second_derivative_window.png`
 
 Second spectral derivative and the detected spectral window.
+
+![Second spectral derivative](docs/figures/second_derivative_window.png)
 
 ---
 
@@ -234,9 +240,9 @@ Unlike conventional time-domain duration measures, \(T_s\) is obtained from the 
 
 The coefficient of determination \(R^2\) indicates the quality of the harmonic fit within the detected window. By default, the fitting result is considered valid when the specified fitting criteria are satisfied and:
 
-\[
+$$
 R^2 \geq 0.98
-\]
+$$
 
 The estimated \(T_s\) should be interpreted as a spectral-duration descriptor and not as a direct replacement for conventional time-domain duration measures.
 
