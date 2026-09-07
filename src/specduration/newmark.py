@@ -1,9 +1,9 @@
 import numpy as np
 from numba import njit
 
-# ----------------------------------------------------------------------
+
 # Newmark-beta time integration
-# ----------------------------------------------------------------------
+
 
 @njit
 def Newmark(
@@ -16,25 +16,6 @@ def Newmark(
     zeta=0.05,
     Tn=0.1,
 ):
-    """
-    Parameters:
-    ug : ndarray
-        Ground acceleration time history.
-    u0 : float
-        Initial relative displacement.
-    up0 : float
-        Initial relative velocity.
-    gamma : float
-        Newmark gamma parameter.
-    beta : float
-        Newmark beta parameter.
-    dt : float
-        Time step of the input record.
-    zeta : float
-        Damping ratio.
-    Tn : float
-        Natural period of the oscillator.
-    """
     if Tn <= 0:
         raise ValueError("Tn must be greater than zero.")
 
@@ -52,28 +33,60 @@ def Newmark(
 
     u[0] = u0
     up[0] = up0
-    upp[0] = -ug[0] - (c / m) * up0 - (k / m) * u0
+    upp[0] = (
+        -ug[0]
+        - (c / m) * up0
+        - (k / m) * u0
+    )
 
-    a1 = m / (beta * dt * dt) + gamma * c / (beta * dt)
-    a2 = m / (beta * dt) + (gamma / beta - 1.0) * c
-    a3 = (1.0 / (2.0 * beta) - 1.0) * m + dt * (gamma / (2.0 * beta) - 1.0) * c
+    a1 = (
+        m / (beta * dt * dt)
+        + gamma * c / (beta * dt)
+    )
+
+    a2 = (
+        m / (beta * dt)
+        + (gamma / beta - 1.0) * c
+    )
+
+    a3 = (
+        (1.0 / (2.0 * beta) - 1.0) * m
+        + dt * (
+            gamma / (2.0 * beta) - 1.0
+        ) * c
+    )
+
     kt = k + a1
 
     for i in range(n - 1):
-        p_eff = p[i + 1] + a1 * u[i] + a2 * up[i] + a3 * upp[i]
+        p_eff = (
+            p[i + 1]
+            + a1 * u[i]
+            + a2 * up[i]
+            + a3 * upp[i]
+        )
 
         u_next = p_eff / kt
 
         up_next = (
-            (gamma / (beta * dt)) * (u_next - u[i])
+            (gamma / (beta * dt))
+            * (u_next - u[i])
             + (1.0 - gamma / beta) * up[i]
-            + dt * (1.0 - gamma / (2.0 * beta)) * upp[i]
+            + dt
+            * (
+                1.0
+                - gamma / (2.0 * beta)
+            )
+            * upp[i]
         )
 
         upp_next = (
-            (u_next - u[i]) / (beta * dt * dt)
+            (u_next - u[i])
+            / (beta * dt * dt)
             - up[i] / (beta * dt)
-            - (1.0 / (2.0 * beta) - 1.0) * upp[i]
+            - (
+                1.0 / (2.0 * beta) - 1.0
+            ) * upp[i]
         )
 
         u[i + 1] = u_next

@@ -90,8 +90,9 @@ def main():
         min_points_window=args.min_points_window,
         min_points_fit=args.min_points_fit,
         min_R2_fit=args.min_R2_fit,
-        zero_tol_rel=None,
-        extend_window_if_needed=(not args.no_extend_window),
+        extend_window_if_needed=(
+            not args.no_extend_window
+        ),
     )
 
     result = run_pipeline(
@@ -112,7 +113,7 @@ def main():
         "T_left",
         "T_right",
         "n_points_window",
-        "td",
+        "Ts",
         "R2",
         "valid_solution",
     ]
